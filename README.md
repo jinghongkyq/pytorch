@@ -40,15 +40,15 @@ y=torch.rand(5,3)
 (2) ```print(torch.add(x,y))``` <br>
 (3) 
 ```
-result = torch.Tensor(5,3)
-torch.add(x,y,out=result)
-print(result)
+    result = torch.Tensor(5,3)
+    torch.add(x,y,out=result)
+    print(result)
 ``` <br>
 (4) 
 ```
-# in-place addition, add x to y
-y.add_(x)
-print(y)
+    # in-place addition, add x to y
+    y.add_(x)
+    print(y)
 ``` <br>
 \items in-place operations: post-fixed with '_', eg. x.copy_(y), x.t_()
     
