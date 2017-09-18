@@ -22,8 +22,9 @@ Out: <br>
 0.0918  0.2827  0.9803 <br>
 0.9237  0.1946  0.0104 <br>
 [torch.FloatTensor of size 5x3]
+
 ```
-  print(x.size())
+print(x.size())
 ```
 Out: <br>
 torch.Size([5, 3]) 
@@ -38,14 +39,15 @@ y=torch.rand(5,3)
 (1) ```print(x+y)``` <br>
 (2) ```print(torch.add(x,y))``` <br>
 (3) ```
-    result = torch.Tensor(5,3)
-    torch.add(x,y,out=result)
-    print(result)
-    ``` <br>
+    result = torch.Tensor(5,3) <br>
+    torch.add(x,y,out=result) <br>
+    print(result) <br>
+    ``` 
+<br>
 (4) ```
     # in-place addition, add x to y
-    y.add_(x)
-    print(y)
+    y.add_(x) <br>
+    print(y) <br>
     ```
     
     \items in-place operations: post-fixed with '_', eg. x.copy_(y), x.t_()
