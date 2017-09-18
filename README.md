@@ -50,8 +50,7 @@ print(result)
 y.add_(x)
 print(y)
 ```
-    
+<br>
 \items in-place operations: post-fixed with '_', eg. x.copy_(y), x.t_()
     
 
-#
