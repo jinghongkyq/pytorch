@@ -120,6 +120,7 @@ if toch.cuda.is_available():
     x+y
 ```
 
+NOTE: [100+ tensor operations](http://pytorch.org/docs/master/torch.html)
 
 ## Autograd: automatic differentiation
 
@@ -169,4 +170,42 @@ Variable containing: <br>
 * Gradients
 -------------------
 backprop: <br>
-```out.backward()``` is equivalent to ```out.backward(torch.Tensor([1.0]))```.
+```out.backward()``` is equivalent to ```out.backward(torch.Tensor([1.0]))```. <br>
+```
+# print gradients d(out)/dx
+out.backward()
+print(x.grad)
+```
+Out: <br>
+Variable containing: <br>
+ 4.5000  4.5000 <br>
+ 4.5000  4.5000 <br>
+[torch.FloatTensor of size 2x2] <br>
+
+```
+x.torch.randn(3)
+x = Variable(x,requires_grad=True)
+
+y = x*2
+while y.data.norm() < 1000
+    y = y*2
+print(y)
+
+gradients = torch.FloatTensor([0.1,1.0,0.0001])
+y.backward(gradients)
+print(x.grad)
+```
+Out:
+Variable containing: -- y
+ 682.4722
+-598.8342
+ 692.9528
+[torch.FloatTensor of size 3]
+
+Variable containing: -- dy/dx
+  102.4000
+ 1024.0000
+    0.1024
+[torch.FloatTensor of size 3]
+
+NOTE: [Automatic differentiation package - torch.autograd](http://pytorch.org/docs/master/autograd.html)
