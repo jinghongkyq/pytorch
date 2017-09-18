@@ -8,24 +8,24 @@ this repository includes the elementary knowledge of pytorch.
 ------------------------------------
 
 ```
-  from __future__ import print_function <br>
-  import torch <br>
+from __future__ import print_function <br>
+import torch <br>
 
-    # Construct a 5x3 matrix, uninitialized
-  x = torch.Tensor(5, 3)  
-  print(x)
+# Construct a 5x3 matrix, uninitialized
+x = torch.Tensor(5, 3)  
+print(x)
 ```
-Out:
-0.2285  0.2843  0.1978
-0.0092  0.8238  0.2703
-0.1266  0.9613  0.2472
-0.0918  0.2827  0.9803
-0.9237  0.1946  0.0104
+Out: <br>
+0.2285  0.2843  0.1978 <br>
+0.0092  0.8238  0.2703 <br>
+0.1266  0.9613  0.2472 <br>
+0.0918  0.2827  0.9803 <br>
+0.9237  0.1946  0.0104 <br>
 [torch.FloatTensor of size 5x3]
 ```
   print(x.size())
 ```
-Out:
+Out: <br>
 torch.Size([5, 3]) 
 
 * operations
@@ -41,7 +41,7 @@ y=torch.rand(5,3)
     result = torch.Tensor(5,3)
     torch.add(x,y,out=result)
     print(result)
-    ```
+    ``` <br>
 (4) ```
     # in-place addition, add x to y
     y.add_(x)
