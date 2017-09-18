@@ -1,14 +1,14 @@
 # pytorch
 this repository includes the elementary knowledge of pytorch.
 
-1. Getting Started
-# Tensors
+# Getting Started
+* Tensors
 
 ///
 from __future__ import print_function
 import torch
 
-* Construct a 5x3 matrix, uninitialized
+** Construct a 5x3 matrix, uninitialized
 x = torch.Tensor(5, 3)  
 print(x)
 
