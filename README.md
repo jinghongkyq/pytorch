@@ -54,5 +54,42 @@ print(y)
 ```
 <br>
 NOTE: in-place operations: post-fixed with '_', eg. x.copy_(y), x.t_()
-    
+    
+* Numpy Bridge
+Torch tensors  <==>  Numpy array <br>
+they share the same momery locations, and changing one will change the other. <br>
 
+(1) torch tensor => numpy array
+```
+a = torch.ones(5)
+print(a)
+```
+Out: <br>
+1 <br>
+1 <br>
+1 <br>
+1 <br>
+1 <br>
+[torch.FloatTensor of size 5] <br>
+
+```
+b = a.numpy()
+print(b)
+```
+Out: <br>
+[ 1.  1.  1.  1.  1.]
+
+```
+a.add_(1)
+print(a)
+print(b)
+```
+Out: <br>
+2 <br>
+2 <br>
+2 <br>
+2 <br>
+2 <br>
+[torch.FloatTensor of size 5] <br>
+
+[ 2.  2.  2.  2.  2.] <br>
