@@ -123,5 +123,14 @@ if toch.cuda.is_available():
 
 ## Autograd: automatic differentiation
 
-Central to all neural networks in PyTorch is the autograd package
-* 
+Central to all neural networks in PyTorch is the `autograd` package.
+
+* Variable
+---------------------------
+`autograd.Variable` is the central class of the package. It wraps a Tensor, and supports nearly all of operations defined on it. Once you finish your computation you can call `.backward()` and have all the gradients computed automatically. <br>
+
+`.data` you can access the raw tensor through the  `.data` attribute <br>
+`.grad` while the gradient w.r.t. this variable is accumulated into `.grad`. <br>
+
+`Fuction` There's one more class which is very important for autograd implementation - a `Fuction` 
+`Variable` and `Function`, encode a complete history of computation. Each Variable has a `.grad_fn` attribute that references a `Fuction` that has created the `Variable` (except for Variables created by the user - their `grad_fn` is None).
