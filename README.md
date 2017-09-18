@@ -8,8 +8,8 @@ this repository includes the elementary knowledge of pytorch.
 ------------------------------------
 
 ```
-from __future__ import print_function <br>
-import torch <br>
+from __future__ import print_function
+import torch
 
 # Construct a 5x3 matrix, uninitialized
 x = torch.Tensor(5, 3)  
@@ -38,19 +38,20 @@ y=torch.rand(5,3)
 [note] the followings are the same <br>
 (1) ```print(x+y)``` <br>
 (2) ```print(torch.add(x,y))``` <br>
-(3) ```
-    result = torch.Tensor(5,3) <br>
-    torch.add(x,y,out=result) <br>
-    print(result) <br>
-    ``` 
-<br>
-(4) ```
-    # in-place addition, add x to y
-    y.add_(x) <br>
-    print(y) <br>
-    ```
+(3) 
+```
+result = torch.Tensor(5,3)
+torch.add(x,y,out=result)
+print(result)
+``` <br>
+(4) 
+```
+# in-place addition, add x to y
+y.add_(x)
+print(y)
+```
     
-    \items in-place operations: post-fixed with '_', eg. x.copy_(y), x.t_()
+\items in-place operations: post-fixed with '_', eg. x.copy_(y), x.t_()
     
 
 #
