@@ -195,17 +195,24 @@ gradients = torch.FloatTensor([0.1,1.0,0.0001])
 y.backward(gradients)
 print(x.grad)
 ```
-Out:
-Variable containing: -- y
- 682.4722
--598.8342
- 692.9528
-[torch.FloatTensor of size 3]
+Out: <br>
+Variable containing: -- y <br>
+ 682.4722 <br>
+-598.8342 <br>
+ 692.9528 <br>
+[torch.FloatTensor of size 3] <br>
 
-Variable containing: -- dy/dx
-  102.4000
- 1024.0000
-    0.1024
-[torch.FloatTensor of size 3]
+Variable containing: -- dy/dx <br>
+  102.4000 <br>
+ 1024.0000 <br>
+    0.1024 <br>
+[torch.FloatTensor of size 3] <br>
 
 NOTE: [Automatic differentiation package - torch.autograd](http://pytorch.org/docs/master/autograd.html)
+
+
+## Neural Networks
+================================
+Neural networks can be constructed using the `torch.nn` package. <br>
+`nn` depends on `autograd` to define models and differentiable them. <br>
+`nn.Module` contains layers, and a method `forward(input)` that returns the `output`.
