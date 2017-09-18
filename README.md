@@ -156,7 +156,7 @@ z = y * y * 3
 out = z.mean()
 print(z, out)
 
-'''
+```
 Out: <br>
 Variable containing: <br>
  27  27 <br>
@@ -169,4 +169,4 @@ Variable containing: <br>
 * Gradients
 -------------------
 backprop: <br>
-```out.backward()``` is equivalent to ```out.backward(torch.Tensor([1.0]))```
+```out.backward()``` is equivalent to ```out.backward(torch.Tensor([1.0]))```.
