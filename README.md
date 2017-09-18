@@ -217,4 +217,4 @@ Neural networks can be constructed using the `torch.nn` package. <br>
 `nn` depends on `autograd` to define models and differentiable them. <br>
 `nn.Module` contains layers, and a method `forward(input)` that returns the `output`.<br>
 
-![](https://github.com/jinghongkyq/pytorch/raw/master/images.mnist.png)
+![](https://github.com/jinghongkyq/pytorch/raw/master/images/mnist.png)
