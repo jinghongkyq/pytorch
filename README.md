@@ -1,27 +1,28 @@
 # pytorch
 this repository includes the elementary knowledge of pytorch.
+====================================
 
 # Getting Started
 * Tensors
 ------------------------------------
 
-///
-from __future__ import print_function
-import torch
 
-** Construct a 5x3 matrix, uninitialized
-x = torch.Tensor(5, 3)  
-print(x)
+  from __future__ import print_function
+  import torch
+
+/// Construct a 5x3 matrix, uninitialized
+  x = torch.Tensor(5, 3)  
+  print(x)
 
 Out:
 0.2285  0.2843  0.1978
- 0.0092  0.8238  0.2703
- 0.1266  0.9613  0.2472
- 0.0918  0.2827  0.9803
- 0.9237  0.1946  0.0104
+0.0092  0.8238  0.2703
+0.1266  0.9613  0.2472
+0.0918  0.2827  0.9803
+0.9237  0.1946  0.0104
 [torch.FloatTensor of size 5x3]
 
-print(x.size())
+  print(x.size())
 
 Out:
 torch.Size([5, 3]) 
