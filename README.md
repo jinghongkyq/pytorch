@@ -3,6 +3,7 @@ this repository includes the elementary knowledge of pytorch.
 
 # Getting Started
 * Tensors
+------------------------------------
 
 ///
 from __future__ import print_function
