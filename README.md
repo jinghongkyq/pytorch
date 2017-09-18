@@ -45,12 +45,13 @@ torch.add(x,y,out=result)
 print(result)
 ``` 
 <br>
-(4) 
+(4) <br>
 ```
     # in-place addition, add x to y
     y.add_(x)
     print(y)
 ``` 
+<br>
 NOTE: in-place operations: post-fixed with '_', eg. x.copy_(y), x.t_()
     
 
