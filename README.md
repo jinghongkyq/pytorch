@@ -51,6 +51,6 @@ print(result)
     y.add_(x)
     print(y)
 ``` 
-\items in-place operations: post-fixed with '_', eg. x.copy_(y), x.t_()
+NOTE: in-place operations: post-fixed with '_', eg. x.copy_(y), x.t_()
     
 
