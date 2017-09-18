@@ -30,6 +30,7 @@ Out: <br>
 torch.Size([5, 3]) 
 
 * operations
+----------------------------
 
 ```
 y=torch.rand(5,3)
@@ -56,6 +57,8 @@ print(y)
 NOTE: in-place operations: post-fixed with '_', eg. x.copy_(y), x.t_()
     
 * Numpy Bridge
+---------------------------------------------
+
 Torch tensors  <==>  Numpy array <br>
 they share the same momery locations, and changing one will change the other. <br>
 
@@ -105,6 +108,8 @@ print(b)
 ```
 
 * CUDA tensors
+--------------------------------------
+
 Tensors can be moved onto GPU using the .cuda function. <br>
 
 ```
@@ -117,3 +122,6 @@ if toch.cuda.is_available():
 
 
 ## Autograd: automatic differentiation
+
+Central to all neural networks in PyTorch is the autograd package
+* 
