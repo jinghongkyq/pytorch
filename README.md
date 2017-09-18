@@ -93,3 +93,26 @@ Out: <br>
 [torch.FloatTensor of size 5] <br>
 
 [ 2.  2.  2.  2.  2.] <br>
+
+(2) numpy array => torch tensor <br>
+```
+import numpy as np
+a = np.ones(5)
+b = torch.from_numpy(a)
+np.add(a,1,out=a)
+print(a)
+print(b)
+```
+
+* CUDA tensors
+Tensors can be moved onto GPU using the .cuda function. <br>
+
+```
+# only if CUDA is available
+if toch.cuda.is_available():
+    x = x.cuda()
+    y = y.cuda()
+    x+y
+```
+
+
