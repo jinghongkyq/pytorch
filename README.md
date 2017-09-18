@@ -133,4 +133,40 @@ Central to all neural networks in PyTorch is the `autograd` package.
 `.grad` while the gradient w.r.t. this variable is accumulated into `.grad`. <br>
 
 `Fuction` There's one more class which is very important for autograd implementation - a `Fuction` 
-`Variable` and `Function`, encode a complete history of computation. Each Variable has a `.grad_fn` attribute that references a `Fuction` that has created the `Variable` (except for Variables created by the user - their `grad_fn` is None).
+`Variable` and `Function`, encode a complete history of computation. Each Variable has a `.grad_fn` attribute that references a `Fuction` that has created the `Variable` (except for Variables created by the user - their `grad_fn` is None). <br>
+
+If you want to compute the derivatives, you can call `.backward()` on a `Variable`. If the `Variable` is a scalar, you don't need to specify any arguments to `backward()`, else you need to specify  `grad_output` argument that is a tensor of matching shape. (需要指定一个和tensor的形状想匹配的grad_output参数。)
+
+```
+import torch
+from torch.autograd improt Varible
+
+# Create a variable
+x = Variable(torch.ones(2,2),requires_grad = True)
+print(x)
+
+# Do an operation of variable
+y = x+2
+
+# y is crated as a result of an operation, so it has a grd_fn
+print(y.grad_fn)
+
+# Do more operations on y
+z = y * y * 3
+out = z.mean()
+print(z, out)
+
+'''
+Out: <br>
+Variable containing: <br>
+ 27  27 <br>
+ 27  27 <br>
+[torch.FloatTensor of size 2x2] <br>
+ Variable containing: <br>
+ 27 <br>
+[torch.FloatTensor of size 1] <br>
+
+* Gradients
+-------------------
+backprop: <br>
+```out.backward()``` is equivalent to ```out.backward(torch.Tensor([1.0]))```
