@@ -2,13 +2,13 @@
 this repository includes the elementary knowledge of pytorch.
 
 1. Getting Started
-* Tensors
+# Tensors
 
 ///
 from __future__ import print_function
 import torch
 
-# Construct a 5x3 matrix, uninitialized
+* Construct a 5x3 matrix, uninitialized
 x = torch.Tensor(5, 3)  
 print(x)
 
@@ -25,12 +25,12 @@ print(x.size())
 Out:
 torch.Size([5, 3]) 
 
-* operations
+# operations
 
 ///
 y=torch.rand(5,3)
 
-# the followings are the same
+* the followings are the same
 (1) print(x+y)
 (2) print(torch.add(x,y))
 (3) result = torch.Tensor(5,3)
@@ -43,4 +43,4 @@ y=torch.rand(5,3)
     \items in-place operations: post-fixed with '_', eg. x.copy_(y), x.t_()
     
 
-* 
+#
