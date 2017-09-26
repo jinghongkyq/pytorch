@@ -133,10 +133,10 @@ Central to all neural networks in PyTorch is the `autograd` package.
 `.data` you can access the raw tensor through the  `.data` attribute <br>
 `.grad` while the gradient w.r.t. this variable is accumulated into `.grad`. <br>
 
-`Fuction` There's one more class which is very important for autograd implementation - a `Fuction` 
+`Fuction` There's one more class which is very important for autograd implementation - a `Fuction`. 
 `Variable` and `Function`, encode a complete history of computation. Each Variable has a `.grad_fn` attribute that references a `Fuction` that has created the `Variable` (except for Variables created by the user - their `grad_fn` is None). <br>
 
-If you want to compute the derivatives, you can call `.backward()` on a `Variable`. If the `Variable` is a scalar, you don't need to specify any arguments to `backward()`, else you need to specify  `grad_output` argument that is a tensor of matching shape. (需要指定一个和tensor的形状想匹配的grad_output参数。)
+If you want to compute the derivatives, you can call `.backward()` on a `Variable`. If the `Variable` is a scalar, you don't need to specify any arguments to `backward()`, else you need to specify  `grad_output` argument that is a tensor of matching shape. (需要指定一个和tensor的形状相匹配的grad_output参数。)
 
 ```
 import torch
