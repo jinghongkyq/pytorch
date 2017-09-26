@@ -305,3 +305,60 @@ print(out)
 Variable containing: <br>
 -0.0431  0.1465  0.0130 -0.0784 -0.0989 -0.0063  0.1443 -0.0105  0.1308  0.0281 <br>
 [torch.FloatTensor of size 1x10] <br>
+
+Zero the gradient buffers of all parameters and backprops with random gradients:
+```
+net.zero_grad()
+out.backward(torch.randn(1, 10))
+```
+
+NOTE: <br>
+The entire torch.nn package only supports inputs that are a mini-batch of samples, and not a single sample. For example, nn.Conv2d will take in a 4D Tensor of nSamples x nChannels x Height x Width. <br>
+If you have a single sample, just use `input.unsqueeze(0)` to add a fake batch dimension.
+
+## Loss Function
+A loss function takes the (output, target) pair of inputs, and computes a value that estimates how far away the output is from the target. <br>
+`MSELoss` computes the mean-squared error between the input and the target.
+```
+output = net(input)
+target = Variable(torch.arange(1, 11))  # a dummy target, for example
+criterion = nn.MSELoss()
+
+loss = criterion(output, target)
+print(loss)
+```
+
+## Backprop
+To backpropogate the error all we have to do is to `loss.backward()`. You need to clear the existing gradients though, else gradients will be accumulated to existing gradients.
+```
+net.zero_grad()
+print('conv1.bias.grad befine backward')
+print(net.conv1.bias.grad)
+
+loss.backward()
+print('conv1.bias.grad after backward')
+print(net.conv1.bias.grad)
+```
+Out: <br>
+conv1.bias.grad before backward <br>
+Variable containing: <br>
+ 0 <br>
+ 0 <br>
+ 0 <br>
+ 0 <br>
+ 0 <br>
+ 0 <br>
+[torch.FloatTensor of size 6] <br>
+
+conv1.bias.grad after backward <br>
+Variable containing: <br>
+-0.0390 <br>
+ 0.1407 <br>
+ 0.0613 <br>
+-0.1214 <br>
+-0.0129 <br>
+-0.0582 <br>
+[torch.FloatTensor of size 6] <br>
+
+NOTE: ![more modules and loss functions defined in the nerual network package](http://pytorch.org/docs/master/nn.html)
+
