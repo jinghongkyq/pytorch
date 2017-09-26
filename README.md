@@ -218,3 +218,15 @@ Neural networks can be constructed using the `torch.nn` package. <br>
 `nn.Module` contains layers, and a method `forward(input)` that returns the `output`.<br>
 
 ![mnist](https://github.com/jinghongkyq/pytorch/raw/master/images/mnist.png)
+Fig. 1 mnist network <br>
+
+The mnist network classifies digit images. It is a simple feed-forward network. It takes the input, feeds it through several layers one after the other, and then finally gives the output. <br>
+
+A typical training procedure for a neural network is as follows: <br>
+
+* Define the neural network that has some learnable parameters (or weights) <br>
+* Iterate over a dataset of inputs <br>
+* Process input through the network <br>
+* Compute the loss (how far is the output from being correct) <br>
+* Propagate gradients back into the network’s parameters <br>
+* Update the weights of the network, typically using a simple update rule: weight = weight - learning_rate gradient <br>
