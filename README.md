@@ -360,5 +360,5 @@ Variable containing: <br>
 -0.0582 <br>
 [torch.FloatTensor of size 6] <br>
 
-NOTE: ![more modules and loss functions defined in the nerual network package](http://pytorch.org/docs/master/nn.html)
+NOTE: [more modules and loss functions defined in the nerual network package](http://pytorch.org/docs/master/nn.html)
 
