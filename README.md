@@ -387,6 +387,18 @@ output = net(input)
 loss = criterion(output,target)
 loss.backward()
 optimizer.step()  # does the update
-
-
 ```
+
+## Training a classifier
+-----------------------------------
+
+## What about data
+When you deal with image, text, audio or video data, you can use standard python packages that load data into a numpy array. Then you can convery this array in to a `torch.*Tensor`. <br>
+* For images, packages such as Pillow, OpenCV are useful.
+* For audio, packages such as scipy and librosa
+* For text, either raw Python or Cython based loading, or NLTK and SpaCy are useful.
+
+Specifically for `vision`, the package `torchvision` is useful. It has data loaders for common datasets such as Imagenet, CIFAR10, MNIST, etc. and data transformers for images, viz., `torchvison.datasets` and `torch.utils.data.DataLoader`.
+
+## Training an image classifier
+For the CIFAR10 dataset, it has the classes:  ‘airplane’, ‘automobile’, ‘bird’, ‘cat’, ‘deer’, ‘dog’, ‘frog’, ‘horse’, ‘ship’, ‘truck’.
