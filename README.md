@@ -422,7 +422,7 @@ improt torchvision.transforms as transforms
 The output of torchvision datasets are PILImage images of range [0, 1]. We transform them to Tensors of normalized range [-1, 1]
 
 ```
-transform = transfors.Compose([transforms.ToTensor(),transforms.Normalize((0.5,0.5,0.5),(0.5,0.5,0.5))])
+transform = transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.5,0.5,0.5),(0.5,0.5,0.5))])
 trainset = torchvision.datasets.CIFAR10(root='./data',transform = transform)
 trainloader = torch.utils.data.DataLoader(trainset,batch_size=4,shuffle=True,num_workers=2)
 
@@ -435,6 +435,11 @@ Out: <br>
 Downloading http://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz to ./data/cifar-10-python.tar.gz <br>
 Files already downloaded and verified <br>
 
+NOTE: <br>
+* `transforms.Compose` 将多个`transform`组合起来使用，对图像、数据进行一些变换。 <br>
+for details: [pytorch torchvision transform](http://pytorch-cn.readthedocs.io/zh/latest/torchvision/torchvision-transform/) <br>
+
+
 Show some of the training images,
 ```
 import matplotlib.pyplot as plt
@@ -445,7 +450,8 @@ import numpy as np
 det imshow(img):
     img = img/2 + 0.5 # unnormalize
     npimg = img.numpy()
-    plt.imshow(np.transpose(npimg,(1,2,0)))
+    plt.imshow(np.transpose(npimg,(1,2,0)))  # c h w -> h w c
+
 # get some random training images
 dataiter = iter(trainloader)
 images,labels = dataiter.next()
@@ -459,3 +465,117 @@ print(' '.joint('%5s' % classes[labels[j]] for j in range(4)))
 Out: <br>
 frog   car  deer plane <br>
 Fig. 3 a batch of training images <br>
+
+NOTE: <br>
+`iter` 迭代器为类序列对象提供了一个类序列的接口。也可以迭代不是序列但是表现出序列行为的对象，如字典的键，文字的行等。
+```
+#iter and generator
+#the first try
+#=================================
+i = iter('abcd')
+print i.next()
+print i.next()
+print i.next()
+
+s = {'one':1,'two':2,'three':3}
+print s
+m = iter(s)
+print m.next()
+print m.next()
+print m.next()
+```
+Out: <br>
+D:\Scirpt\Python\Python高级编程>python ch2_2.py <br>
+a <br>
+b <br>
+c <br>
+{'three': 3, 'two': 2, 'one': 1} <br>
+three <br>
+two <br>
+one <br>
+
+### 2. Define a Convolution Neural Network
+case of 3 channel images
+```
+from torch.autograd import Variable
+import torch.nn as nn
+import torch.nn.functional as F
+
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv1 = nn.Conv2d(3,6,5)
+        self.pool = nn.MaxPool2d(2,2)
+        self.conv2 = nn.Conv2d(6,16,5)
+        self.fc1 = nn.Linear(16*5*5,120)
+        self.fc2 = nn.Linear(120,84)
+        self.fc3 = nn.Linear(84,10)
+        
+     def forward(self,x):
+         x = self.pool(F.relu(self.conv1(x)))
+         x = self.pool(F.relu(self.conv2(x)))
+         x = x.view(-1,16*5*5)
+         x = F.relu(self.fc1(x))
+         x = F.relu(self.fc2(x))
+         x = self.fc3(x)
+         return x
+         
+net = Net()
+```
+
+### 3. Define a Loss Function and Optimizer
+Use a Classification Cross-Entropy loss and SGD momentum
+```
+import torch.optim as optim
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.SGD(net.parameters(),lr=0.001,momentum=0.9)
+```
+
+### 4. Train the Network
+We simply have to loop over our data iterator, and feed the inputs to the network and optimize.
+```
+for epoch in range(2):  # Loop over the dataset multiple times
+    
+    running_loss = 0.0
+    for i, data in enumerate(trainloader,0):
+        # get the inputs
+        input, labels = data
+        
+        # wrap them in Variable
+        inputs, labels = Variable(inputs), Variable(labels)
+        
+        # zero the paramenter gradients
+        optimizer.zero_grad()
+        
+        # forward + backward + optimize
+        outputs = net(inputs)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+        
+        # print statistics
+        running_loss += loss.data[0]
+        if i % 2000 == 1999:   # print every 2000 mini-batches
+            print('[%d,%5d] loss: %.3f' % (epoch+1, i+1, running_loss/2000))
+            running_loss = 0.0
+
+print('Finished Training')
+```
+Out: <br>
+[1,  2000] loss: 2.193 <br>
+[1,  4000] loss: 1.814 <br>
+[1,  6000] loss: 1.653 <br>
+[1,  8000] loss: 1.571 <br>
+[1, 10000] loss: 1.470 <br>
+[1, 12000] loss: 1.454 <br>
+[2,  2000] loss: 1.374 <br>
+[2,  4000] loss: 1.342 <br>
+[2,  6000] loss: 1.337 <br>
+[2,  8000] loss: 1.300 <br>
+[2, 10000] loss: 1.297 <br>
+[2, 12000] loss: 1.271 <br>
+Finished Training <br>
+
+
+### 5. Test the Network on the Test Data
+We will check this by predicting the class label that the neural network outputs, and checking it against the ground-truth. If the prediction is correct, we add the sample to the list of correct predictions.
