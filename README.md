@@ -403,7 +403,7 @@ Specifically for `vision`, the package `torchvision` is useful. It has data load
 ## Training an image classifier
 For the CIFAR10 dataset, it has the classes:  ‘airplane’, ‘automobile’, ‘bird’, ‘cat’, ‘deer’, ‘dog’, ‘frog’, ‘horse’, ‘ship’, ‘truck’.
 
-![cifar10](https://github.com/jinghongkyq/pytorch/raw/master/images/mnist.png)
+![cifar10](https://github.com/jinghongkyq/pytorch/raw/master/images/cifar10.png)
 Fig. 2 CIFAR10 dataset <br>
 
 steps of training an image classifier: <br>
@@ -413,3 +413,47 @@ steps of training an image classifier: <br>
 * Train the network on the training data
 * Test the network in the test data
 
+### 1. Loading and normalizing CIFAR10
+```
+import torch
+import torchvision
+improt torchvision.transforms as transforms
+```
+The output of torchvision datasets are PILImage images of range [0, 1]. We transform them to Tensors of normalized range [-1, 1]
+
+```
+transform = transfors.Compose([transforms.ToTensor(),transforms.Normalize((0.5,0.5,0.5),(0.5,0.5,0.5))])
+trainset = torchvision.datasets.CIFAR10(root='./data',transform = transform)
+trainloader = torch.utils.data.DataLoader(trainset,batch_size=4,shuffle=True,num_workers=2)
+
+testset = torchvision.datasets.CIFAR10(root='./data',train=False,download=True,transform=transform)
+testloader = torch.utils.data.DataLoader(testset,batch_size=4,shuffle=False,num_workers=2)
+
+classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
+```
+Out: <br>
+Downloading http://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz to ./data/cifar-10-python.tar.gz <br>
+Files already downloaded and verified <br>
+
+Show some of the training images,
+```
+import matplotlib.pyplot as plt
+import numpy as np
+
+# functions to show an image
+
+det imshow(img):
+    img = img/2 + 0.5 # unnormalize
+    npimg = img.numpy()
+    plt.imshow(np.transpose(npimg,(1,2,0)))
+# get some random training images
+dataiter = iter(trainloader)
+images,labels = dataiter.next()
+
+# show images
+imshow(torchvision.utils.make_grid(images))
+# print labels
+print(' '.joint('%5s' % classes[labels[j]] for j in range(4)))
+```
+![showimg](https://github.com/jinghongkyq/pytorch/raw/master/images/showimg.png)
+Fig. 3 a batch of training images <br>
