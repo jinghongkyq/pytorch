@@ -455,5 +455,7 @@ imshow(torchvision.utils.make_grid(images))
 # print labels
 print(' '.joint('%5s' % classes[labels[j]] for j in range(4)))
 ```
-![showimg](https://github.com/jinghongkyq/pytorch/raw/master/images/showimg.png)
+![showimg](https://github.com/jinghongkyq/pytorch/raw/master/images/showimg.png) <br>
+Out: <br>
+frog   car  deer plane <br>
 Fig. 3 a batch of training images <br>
