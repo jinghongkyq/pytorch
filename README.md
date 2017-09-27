@@ -402,3 +402,14 @@ Specifically for `vision`, the package `torchvision` is useful. It has data load
 
 ## Training an image classifier
 For the CIFAR10 dataset, it has the classes:  ‘airplane’, ‘automobile’, ‘bird’, ‘cat’, ‘deer’, ‘dog’, ‘frog’, ‘horse’, ‘ship’, ‘truck’.
+
+![cifar10](https://github.com/jinghongkyq/pytorch/raw/master/images/mnist.png)
+Fig. 2 CIFAR10 dataset <br>
+
+steps of training an image classifier: <br>
+* Load and normalizing the CIFAR10 training and test datasets using `torchvision`
+* Define a Convolution Neural Network
+* Define a loss function
+* Train the network on the training data
+* Test the network in the test data
+
