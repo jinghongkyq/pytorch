@@ -362,3 +362,31 @@ Variable containing: <br>
 
 NOTE: [more modules and loss functions defined in the nerual network package](http://pytorch.org/docs/master/nn.html)
 
+## Update the weights
+The simplest update rule used in practice is the Stochastic Gradient Descent (SGD):
+```
+weight = weight - learning_rate * gradient
+```
+We can implement this using simple python code:
+```
+learning_rate = 0.01
+for f in net.parameters():
+    f.data.sub_(f.grad.data * learning_rate)
+```
+
+`torch.optim` various update rules such as SGD, Nesterov-SGD, Adam, RMSProp, etc, are encapsulated in the `torch.optim` package.
+```
+import torch.optim as optim
+
+# create your optimizer
+optimizer = optim.SGD(net.parameters(),lr = 0.01)
+
+# in your training loop
+optimizer.zero_grad()  # zero the gradient buffers
+output = net(input)
+loss = criterion(output,target)
+loss.backward()
+optimizer.step()  # does the update
+
+
+```
