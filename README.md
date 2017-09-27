@@ -217,7 +217,7 @@ Neural networks can be constructed using the `torch.nn` package. <br>
 `nn` depends on `autograd` to define models and differentiable them. <br>
 `nn.Module` contains layers, and a method `forward(input)` that returns the `output`.<br>
 
-![mnist](https://github.com/jinghongkyq/pytorch/raw/master/images/mnist.png)
+![mnist](https://github.com/jinghongkyq/pytorch/raw/master/images/mnist.png) <br>
 Fig. 1 mnist network <br>
 
 The mnist network classifies digit images. It is a simple feed-forward network. It takes the input, feeds it through several layers one after the other, and then finally gives the output. <br>
@@ -403,7 +403,7 @@ Specifically for `vision`, the package `torchvision` is useful. It has data load
 ## Training an image classifier
 For the CIFAR10 dataset, it has the classes:  ‘airplane’, ‘automobile’, ‘bird’, ‘cat’, ‘deer’, ‘dog’, ‘frog’, ‘horse’, ‘ship’, ‘truck’.
 
-![cifar10](https://github.com/jinghongkyq/pytorch/raw/master/images/cifar10.png)
+![cifar10](https://github.com/jinghongkyq/pytorch/raw/master/images/cifar10.png) <br>
 Fig. 2 CIFAR10 dataset <br>
 
 steps of training an image classifier: <br>
