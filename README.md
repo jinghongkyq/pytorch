@@ -660,3 +660,4 @@ Remember that you will have to send the inputs and targets at every step to the 
 ```
 inputs, labels = Variable(inputs.cuda()), Variable(labels.cuda())
 ```
+
