@@ -661,3 +661,93 @@ Remember that you will have to send the inputs and targets at every step to the 
 inputs, labels = Variable(inputs.cuda()), Variable(labels.cuda())
 ```
 
+## Forward and Backward Function Hooks
+inspected the weights and the gradients,
+```
+print(net.conv1.weight.grad.size())
+print(net.conv1.weight.data.norm())  # norm of the weight
+print(net.conv1.weight.grad.data.norm())  # norm of the gradients
+```
+
+`hook` inspecting / modifying the output and grad_output of a layer. <br>
+You can register a function on a Module or a Variable. The hook can be a forward hook or a backward hook. The forward hook will be executed when a forward call is executed. The backward hook will be executed in the backward phase.
+
+* foward hook
+```
+def printnorm(self, input, output):
+    # input is a tuple of packed inputs
+    # output is a Variable. output.data is the Tensor we are interested
+    print('Inside ' + self.__class__.__name__ + ' forward')
+    print('')
+    print('input: ', type(input))
+    print('input[0]: ', type(input[0]))
+    print('output: ', type(output))
+    print('')
+    print('input size:', input[0].size())
+    print('output size:', output.data.size())
+    print('output norm:', output.data.norm())
+
+
+net.conv2.register_forward_hook(printnorm)
+
+out = net(input)
+```
+Out: <br>
+Inside Conv2d forward <br>
+
+input:  <class 'tuple'> <br>
+input[0]:  <class 'torch.autograd.variable.Variable'> <br>
+output:  <class 'torch.autograd.variable.Variable'> <br>
+
+input size: torch.Size([1, 10, 12, 12]) <br>
+output size: torch.Size([1, 20, 8, 8]) <br>
+output norm: 16.448492454427257 <br>
+
+* backward hook
+```
+def printgradnorm(self, grad_input, grad_output):
+    print('Inside ' + self.__class__.__name__ + ' backward')
+    print('Inside class:' + self.__class__.__name__)
+    print('')
+    print('grad_input: ', type(grad_input))
+    print('grad_input[0]: ', type(grad_input[0]))
+    print('grad_output: ', type(grad_output))
+    print('grad_output[0]: ', type(grad_output[0]))
+    print('')
+    print('grad_input size:', grad_input[0].size())
+    print('grad_output size:', grad_output[0].size())
+    print('grad_input norm:', grad_input[0].data.norm())
+
+net.conv2.register_backward_hook(printgradnorm)
+
+out = net(input)
+err = loss_fn(out, target)
+err.backward()
+```
+Out: <br>
+Inside Conv2d forward <br>
+
+input:  <class 'tuple'> <br>
+input[0]:  <class 'torch.autograd.variable.Variable'> <br>
+output:  <class 'torch.autograd.variable.Variable'> <br>
+
+input size: torch.Size([1, 10, 12, 12]) <br>
+output size: torch.Size([1, 20, 8, 8]) <br>
+output norm: 16.448492454427257 <br>
+Inside Conv2d backward <br>
+Inside class:Conv2d <br>
+
+grad_input:  <class 'tuple'> <br>
+grad_input[0]:  <class 'torch.autograd.variable.Variable'> <br>
+grad_output:  <class 'tuple'> <br>
+grad_output[0]:  <class 'torch.autograd.variable.Variable'> <br>
+
+grad_input size: torch.Size([1, 10, 12, 12]) <br>
+grad_output size: torch.Size([1, 20, 8, 8]) <br>
+grad_input norm: 0.10571633312468412 <br> 
+
+A full and working MNIST example is located here <br>
+[minst](https://github.com/pytorch/examples/tree/master/mnist) <br>
+
+[Language Modeling example using LSTMs and Penn Tree-bank](https://github.com/pytorch/examples/tree/master/word_language_model) <br>
+
