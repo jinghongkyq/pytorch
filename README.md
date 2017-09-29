@@ -579,3 +579,84 @@ Finished Training <br>
 
 ### 5. Test the Network on the Test Data
 We will check this by predicting the class label that the neural network outputs, and checking it against the ground-truth. If the prediction is correct, we add the sample to the list of correct predictions.
+
+* display an image from the test set
+```
+dataiter = iter(testloader)
+images, labels = dataiter.next()
+
+# print images
+imshow(torchvision.utils.make_grid(images))
+print('GroundTruth: ', ' '.join('%5s' % classes[labels[j]] for j in range(4)))
+```
+
+![test_gt](https://github.com/jinghongkyq/pytorch/raw/master/images/test_gt.png) <br>
+GroundTruth:    cat  ship  ship plane <br>
+
+* what the neural network thinks these examples above are:
+```
+outputs = net(Variable(images))
+_, predicted = torch.max(outputs.data,1)
+print('Predicted: ',' '.join('%5s' % classes[predicted[j]] for j in range(4)))
+```
+Out: <br>
+Predicted:   frog   car  ship plane <br>
+
+* how the network performs on the whole dataset
+```
+correct = 0
+total = 0
+for data in testloader:
+    images, labels = data
+    outputs = net(Variable(images))
+    _, predicted = torch.max(outputs.data, 1)
+    total += labels.size(0)
+    correct += (predicted == labels).sum()
+
+print('Accuracy of the network on the 10000 test images: %d %%' % (
+    100 * correct / total))
+```
+Out: <br>
+Accuracy of the network on the 10000 test images: 55 % <br>
+
+* class-wise performance
+```
+class_correct = list(0. for i in range(10))
+class_total = list(0. for i in range(10))
+for data in testloader:
+    images, labels = data
+    outputs = net(Variable(images))
+    _, predicted = torch.max(outputs.data, 1)
+    c = (predicted == labels).squeeze()
+    for i in range(4):
+        label = labels[i]
+        class_correct[label] += c[i]
+        class_total[label] += 1
+
+
+for i in range(10):
+    print('Accuracy of %5s : %2d %%' % (
+        classes[i], 100 * class_correct[i] / class_total[i]))
+```
+Out: <br>
+Accuracy of plane : 69 % <br>
+Accuracy of   car : 61 % <br>
+Accuracy of  bird : 31 % <br>
+Accuracy of   cat : 35 % <br>
+Accuracy of  deer : 65 % <br>
+Accuracy of   dog : 26 % <br>
+Accuracy of  frog : 69 % <br>
+Accuracy of horse : 62 % <br>
+Accuracy of  ship : 67 % <br>
+Accuracy of truck : 68 % <br>
+
+## Training ong GPU
+Just like how you transfer a Tensor on to the GPU, you transfer the neural net onto the GPU. This will recursively go over all modules and convert their parameters and buffers to CUDA tensors:
+···
+net.cuda()
+···
+
+Remember that you will have to send the inputs and targets at every step to the GPU too:
+```
+inputs, labels = Variable(inputs.cuda()), Variable(labels.cuda())
+```
