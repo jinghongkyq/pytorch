@@ -650,7 +650,7 @@ Accuracy of horse : 62 % <br>
 Accuracy of  ship : 67 % <br>
 Accuracy of truck : 68 % <br>
 
-## Training ong GPU
+## Training on GPU
 Just like how you transfer a Tensor on to the GPU, you transfer the neural net onto the GPU. This will recursively go over all modules and convert their parameters and buffers to CUDA tensors:
 ···
 net.cuda()
@@ -751,3 +751,6 @@ A full and working MNIST example is located here <br>
 
 [Language Modeling example using LSTMs and Penn Tree-bank](https://github.com/pytorch/examples/tree/master/word_language_model) <br>
 
+
+## torch.nn.SmoothL1Loss(size_average=True, reduce=True)  
+![pytorch_1](./images/pytorch_1.png)  
