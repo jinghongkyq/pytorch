@@ -1,8 +1,10 @@
 #### error: 
 
 ```
-optimizer = torch.optim.SGD(model.parameters(), args.lr, momentum=args.momentum, weight_decay=args.weight_decay)
-
+optimizer = torch.optim.SGD(model.parameters(), 
+                            args.lr, 
+                            momentum=args.momentum, 
+                            weight_decay=args.weight_decay)
 ```
 there are several layers are fixed in the network, e.g., 
 
